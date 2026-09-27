@@ -1,0 +1,19 @@
+module DataMemory(
+    input clk,
+    input MemRead,
+    input MemWrite,
+    input [31:0] Address,
+    input [31:0] WriteData,
+    output [31:0] ReadData
+);
+
+reg [31:0] memory [0:255];
+
+assign ReadData = (MemRead) ? memory[Address] : 32'b0;
+
+always @(posedge clk) begin
+    if(MemWrite)
+        memory[Address] <= WriteData;
+end
+
+endmodule
